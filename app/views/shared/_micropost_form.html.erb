@@ -2,6 +2,24 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
+    <span class="count"></span>
   </div>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+
+
+<script type="text/javascript">
+
+$(function(){
+    $('textarea').bind('keydown keyup keypress change',context_count);
+});
+
+context_count = function(){
+  var thisValueLength = $('textarea').val().length;
+  $('.count').html( "あと" + String(140 - thisValueLength ) + "文字");
+};
+
+context_count();
+
+</script>
+
 <% end %>
