@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     end
 
     def unsigned_in_user
-      redirect_to root_url if signed_in?
+      redirect_to root_url, notice: "You are already signin." if signed_in?
     end
 
 end
