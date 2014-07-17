@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: { minimum: 6 }
 
+  VALID_KEY_REGEX = /[0-9a-z\d\-\_.]/i
+  validates :key, presence: true, length: { minimum: 6 },
+                    format: { with: VALID_KEY_REGEX },
+                    uniqueness: { case_sensitive: false }
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

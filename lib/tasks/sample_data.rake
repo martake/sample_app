@@ -10,6 +10,7 @@ end
 def make_users
   admin = User.create!(name:     "Example User",
                        email:    "example@railstutorial.jp",
+                       key:    "example",
                        password: "foobar",
                        password_confirmation: "foobar",
                        admin: true)
@@ -19,6 +20,7 @@ def make_users
     password  = "password"
     User.create!(name:     name,
                  email:    email,
+                 key:    name.underscore.gsub(/\s/,'_'),
                  password: password,
                  password_confirmation: password)
   end

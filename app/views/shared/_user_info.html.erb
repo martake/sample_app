@@ -4,6 +4,9 @@
 <h1>
   <%= user.name %>
 </h1>
+<span>
+  @<%= user.key %>
+</span>
 <% unless hide_profile_link %>
 <span>
   <%= link_to "view profile", user %>
