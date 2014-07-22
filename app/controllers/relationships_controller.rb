@@ -7,6 +7,9 @@ class RelationshipsController < ApplicationController
     @user = User.find(params[:relationship][:followed_id])
     current_user.follow!(@user)
     respond_with @user
+
+    UserMailer.followup_notification(@user, current_user).deliver
+
   end
 
   def destroy

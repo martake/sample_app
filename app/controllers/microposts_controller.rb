@@ -16,7 +16,7 @@ class MicropostsController < ApplicationController
       flash[:success] = "Message created!"
       redirect_to messages_path
 
-    elsif !micropost.nil? && @micropost.save
+    elsif !@micropost.nil? && @micropost.save
       flash[:success] = "Microposts created!"
       redirect_to root_url
 
