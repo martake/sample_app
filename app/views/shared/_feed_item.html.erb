@@ -8,6 +8,6 @@
     <span class="timestamp">
       Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
     </span>
-  <%= render 'shared/micropost_delete', micropost: feed_item %>
+  <%= render 'shared/micropost_delete', object: feed_item %>
 </li>
 
