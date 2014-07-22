@@ -8,7 +8,9 @@ class RelationshipsController < ApplicationController
     current_user.follow!(@user)
     respond_with @user
 
-    UserMailer.followup_notification(@user, current_user).deliver
+    if @user.followup_mail
+      UserMailer.followup_notification(@user, current_user).deliver
+    end
 
   end
 
