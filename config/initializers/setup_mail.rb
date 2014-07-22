@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
-  :domain               => "railscasts.com",
-  :user_name            => "railscasts",
-  :password             => "secret",
+  :domain               => "smtp.gmail.com",
+  :user_name            => "example_address@gmail.com",
+  :password             => "example_password",
   :authentication       => "plain",
   :enable_starttls_auto => true
 }

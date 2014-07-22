@@ -5,7 +5,6 @@ class UserMailer < ActionMailer::Base
     @followed_user = followed_user
     @follower_user = follower_user
     attachments["rails.png"] = File.read("#{Rails.root}/app/assets/images/rails.png")
-    # mail(:to => "#{followed_user.name} <#{followed_user.email}>", :subject => "#{follower_user.name} is Your Follower")
-    mail(:to => "mar.takeuchi@gmail.com", :subject => "#{follower_user.name} is Your Follower")
+    mail(:to => "#{followed_user.name} <#{followed_user.email}>", :subject => "#{follower_user.name} is Your Follower")
   end
 end
