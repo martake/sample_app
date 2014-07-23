@@ -7,8 +7,9 @@
       <%= f.label :name %>
       <%= f.text_field :name %>
 
+      <% email_disabled = type == "create" ? {} : {:disabled => true} %>
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, email_disabled %>
 
       <%= f.label :followup_mail %>
       <%= f.check_box :followup_mail %>

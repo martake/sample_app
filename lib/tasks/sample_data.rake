@@ -13,6 +13,7 @@ def make_users
                        key:    "example",
                        password: "foobar",
                        password_confirmation: "foobar",
+                       mail_confirm_state: "ok",
                        admin: true)
   99.times do |n|
     name  = Faker::Name.name

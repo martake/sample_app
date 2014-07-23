@@ -13,4 +13,9 @@ class UserMailer < ActionMailer::Base
     mail :to => user.email, :subject => "Password Reset"
   end
 
+  def email_confirm(user)
+    @user = user
+    mail :to => user.email, :subject => "Email Confirm"
+  end
+
 end

@@ -18,9 +18,9 @@ class UsersController < ApplicationController
   def create
    @user = User.new(user_params)
    if @user.save
-     sign_in @user
-     flash[:success] = "Welcome to the Sample App!"
-     redirect_to @user
+     @user.send_email_confirm
+     flash[:success] = "Send Confirm Mail to Your Address"
+     redirect_to root_path
    else
      render 'new'
    end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update_attributes(user_change_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -67,9 +67,30 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  def email_confirm
+    @user = User.find_by(email_confirm_token: params[:id])
+
+    unless @user.nil?
+      @user.confirmed
+      sign_in @user
+      flash[:success] = "Welcome to App!"
+      redirect_to @user
+    else
+      flash[:error] = "No Match URL"
+      redirect_to root_url
+
+    end
+
+  end
+
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :key, :followup_mail, 
+                                   :password_confirmation)
+    end
+
+    def user_change_params
+      params.require(:user).permit(:name, :password, :key, :followup_mail, 
                                    :password_confirmation)
     end
 

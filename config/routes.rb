@@ -3,7 +3,7 @@ SampleApp::Application.routes.draw do
   get "password_resets/new"
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :email_confirm
     end
   end
   resources :sessions, only: [:new, :create, :destroy]

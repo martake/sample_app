@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: false }, :on => :create
 
   has_secure_password
   validates :password, length: { minimum: 6 }
@@ -24,7 +24,21 @@ class User < ActiveRecord::Base
   VALID_KEY_REGEX = /[0-9a-z\d\-\_.]/i
   validates :key, presence: true, length: { minimum: 6 },
                     format: { with: VALID_KEY_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: false }, :on => :create
+
+  state_machine :mail_confirm_state, :initial => :wait do
+    state :wait
+    state :ok
+
+    # event :confirmed do
+    #   transition :wait => :ok
+    # end
+
+  end
+
+  def confirmed
+    update_attribute( :mail_confirm_state, "ok")
+  end
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -55,13 +69,17 @@ class User < ActiveRecord::Base
   end
 
   def send_password_reset
-    generate_token(:password_reset_token)
-    # self.password_reset_sent_at = Time.zone.now
-    # save!
-    update_attribute(:password_reset_token, self.password_reset_token)
+    update_attribute(:password_reset_token, SecureRandom.urlsafe_base64)
     update_attribute(:password_reset_sent_at, Time.zone.now)
 
     UserMailer.password_reset(self).deliver
+  end
+
+  def send_email_confirm
+     update_attribute(:email_confirm_token, SecureRandom.urlsafe_base64)
+
+     UserMailer.email_confirm(self).deliver
+
   end
 
   private
