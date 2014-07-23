@@ -7,4 +7,10 @@ class UserMailer < ActionMailer::Base
     attachments["rails.png"] = File.read("#{Rails.root}/app/assets/images/rails.png")
     mail(:to => "#{followed_user.name} <#{followed_user.email}>", :subject => "#{follower_user.name} is Your Follower")
   end
+  
+  def password_reset(user)
+    @user = user
+    mail :to => user.email, :subject => "Password Reset"
+  end
+
 end
