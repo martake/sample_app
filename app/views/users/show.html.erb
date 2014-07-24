@@ -7,6 +7,9 @@
     <section>
       <%= render 'shared/stats' %>
     </section>
+    <section>
+      <%= link_to "RSS Feed", rss_user_url(:rss, id: @user.id) %>
+    </section>  
   </aside>
   <div class="span8">
     <%= render 'follow_form' if signed_in? %>

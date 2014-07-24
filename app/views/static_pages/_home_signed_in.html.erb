@@ -7,6 +7,9 @@
         <%= render 'shared/stats' %>
       </section>  
       <section>
+        <%= link_to "RSS Feed", rss_url(:rss, rss_token: current_user.rss_token) %>
+      </section>  
+      <section>
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>

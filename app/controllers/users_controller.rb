@@ -7,23 +7,28 @@ class UsersController < ApplicationController
   before_action :unsigned_in_user, only: [:new, :create]
 
   def show
-   @user = User.find(params[:id])
-   @microposts = @user.microposts.paginate(page: params[:page])
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end
+
+  def rss
+    @user = User.find(params[:id])
+    @feed_items  = @user.microposts
   end
 
   def new
-   @user = User.new
+    @user = User.new
   end
 
   def create
-   @user = User.new(user_params)
-   if @user.save
-     @user.send_email_confirm
-     flash[:success] = "Send Confirm Mail to Your Address"
-     redirect_to root_path
-   else
-     render 'new'
-   end
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_email_confirm
+      flash[:success] = "Send Confirm Mail to Your Address"
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
   def edit

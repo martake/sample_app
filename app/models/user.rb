@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :reverse_relationships, source: :follower
 
   before_save { self.email = email.downcase }
+  before_create { self.rss_token = SecureRandom.urlsafe_base64 }
 
   validates :name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

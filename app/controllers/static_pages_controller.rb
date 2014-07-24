@@ -6,6 +6,11 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def rss
+    @user = User.find_by( rss_token: params[:rss_token])
+    @feed_items  = @user.feed
+  end
+
   def help
   end
 
